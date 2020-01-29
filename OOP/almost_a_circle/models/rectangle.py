@@ -58,11 +58,15 @@ class Rectangle(Base):
         if value < 0:
             raise ValueError("{} must be >= 0".format(name))
 
+
+    """ PUBLIC METHODS """
+
     def area(self):
         return self.__width * self.__height
 
     def display(self):
-        print(("#" * self.__width + '\n') * self.__height, end='')
+        print(('\n' * self.__y) + ((" " * self.__x) \
+            + "#" * self.__width + '\n') * self.__height, end='')
 
     def __str__(self):
         return "[{}] ({}) {}/{} - {}/{}".format(__class__.__name__,
