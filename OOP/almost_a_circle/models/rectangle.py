@@ -76,7 +76,7 @@ class Rectangle(Base):
                                         self.__width,
                                         self.__height)
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         if args is not  None and len(args) > 0:
             for i, ar in enumerate(args):
                 if i == 0:
@@ -90,4 +90,17 @@ class Rectangle(Base):
                     self.__x = ar
                 if i == 4:
                     self.__y = ar
-            
+        
+        elif kwargs is not None and len(kwargs) > 0:
+            for key, value in kwargs.items():
+                if key == 'id':
+                    super().__init__(value)
+                    self.id = value
+                if key == 'width':
+                    self.__width = value
+                if key == 'height':
+                    self.__height = value
+                if key == 'x':
+                    self.__x = value
+                if key == 'y':
+                    self.__y = value
