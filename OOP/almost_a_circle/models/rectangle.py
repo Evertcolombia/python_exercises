@@ -75,3 +75,19 @@ class Rectangle(Base):
                                         self.__y,
                                         self.__width,
                                         self.__height)
+
+    def update(self, *args):
+        if args is not  None and len(args) > 0:
+            for i, ar in enumerate(args):
+                if i == 0:
+                    super().__init__(ar)
+                    self.id = ar
+                if i == 1:
+                    self.__width = ar
+                if i == 2:
+                    self.__height = ar
+                if i == 3:
+                    self.__x = ar
+                if i == 4:
+                    self.__y = ar
+            
