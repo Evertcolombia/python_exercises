@@ -17,6 +17,7 @@ class Rectangle(Base):
 
     @width.setter
     def width(self, value):
+        self.validation_case("width", value)
         self.__width = value
 
     @property
@@ -25,6 +26,7 @@ class Rectangle(Base):
 
     @width.setter
     def height(self, value):
+        self.validation_case("height", value)
         self.__height = value
 
     @property
@@ -33,6 +35,7 @@ class Rectangle(Base):
 
     @width.setter
     def x(self, value):
+        self.validation_case("x", value)
         self.__x = value
 
     @property
@@ -41,4 +44,16 @@ class Rectangle(Base):
 
     @width.setter
     def y(self, value):
+        self.validation_case("y", value)
         self.__y = value
+
+    def validation_case(self, name, value):
+        if type(value) != int:
+            raise TypeError("{} must be an integer". format(name))
+
+        if name == "width" or name == "heigth":
+            if value <= 0:
+                raise ValueError("{} must be > 0".format(name))
+        
+        if value < 0:
+            raise ValueError("{} must be >= 0".format(name))
