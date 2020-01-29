@@ -104,3 +104,12 @@ class Rectangle(Base):
                     self.__x = value
                 if key == 'y':
                     self.__y = value
+
+    def to_dictionary(self):
+        l = ["id", "width", "height", "x", "y"]
+        d = {}
+
+        for el in l:
+            a = {el: getattr(self, el)}
+            d.update(a)
+        return d
