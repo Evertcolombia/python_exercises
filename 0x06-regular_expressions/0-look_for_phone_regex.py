@@ -12,8 +12,7 @@ PhoneNumberRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d')
 mo = PhoneNumberRegex.match('This is my number 415-555-1151.')
 # If there a re a match object use group() method to get the
 # text that is match from the matchin string
-final = mo.group()
-
-print("Phone number found: " + final)
+if mo:
+    print("Phone number found: " + mo.group())
 
 #it works on the python console
