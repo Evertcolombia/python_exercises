@@ -33,5 +33,26 @@ if match_objects:
 
     print(areCode)
     print(mainNumber)
-    
+
+
+  
+#################################################################
+#also yo cans use parentsss as part of a group  use the follow expression (\(content\))
+phoneRegex = re.compile(r'(\(\d{3}\)) (\d{3}-\d{4})')
+
+#creat match object
+mo = phoneRegex.search('My number is : (131) 444-1511.')
+
+#assign the groups to diffrennt variabls if they exits
+if mo:
+
+    areaCode, mainNumber = mo.groups
+    print(areaCode)
+    print(mainNumber)
+
+    #see all the groups
+    print(mo.groups)
+
+
+
 #it works on the python console
