@@ -15,4 +15,23 @@ mo = PhoneNumberRegex.match('This is my number 415-555-1151.')
 if mo:
     print("Phone number found: " + mo.group())
 
+
+####################################################################
+
+# Groups method returns a tuple of the groups ext in the match object
+
+#also you can use parentesses to separate the patter yo look by groups
+phoneRegex = re.compile(r'(\d{3})-(\d{3}-\d{4})')
+
+# Create a match object or almost try
+match_object = phoneRegex.search('This is my number 131-444-1511.')
+
+# test if the 'mo' is true and set the groups in diffrent variables
+# ussing difrent assignement
+if match_objects:
+    areaCode, mainNumber =  match_objects.groups()
+
+    print(areCode)
+    print(mainNumber)
+    
 #it works on the python console
