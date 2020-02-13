@@ -35,4 +35,8 @@ def fib2(n): # Return a Fibonacci series up to n
         >>> fib = fibo.fib #assgin a specific method from the module
         >>> fib(500)
         1 1 2 3 5 8 13 21 34 55 89 144 233 377 
+
+        # You can use the module imp "import imp" and the method reload() imp.reload(modulename) to update the module when youre doing hanges from an text editor
+
+
     """
