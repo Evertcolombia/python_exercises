@@ -106,10 +106,10 @@ class Rectangle(Base):
                     self.__y = value
 
     def to_dictionary(self):
-        l = ["id", "width", "height", "x", "y"]
+        l = ['id', 'width', 'height', 'x', 'y']
         d = {}
 
-        for el in l:
-            a = {el: getattr(self, el)}
+        for arg in l:
+            a = {arg: getattr(self, arg)}
             d.update(a)
         return d
