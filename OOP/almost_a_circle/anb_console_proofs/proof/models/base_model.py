@@ -6,6 +6,7 @@ This is module define the base class (super class)
 from datetime import datetime
 from uuid import uuid4
 
+
 class BaseModel():
     """Class BaseModel
 
@@ -18,11 +19,17 @@ class BaseModel():
         Validate values
 
         """
-        if kwargs is not None:
-            self.instc_create(kwargs)
-        self.id = str(uuid4())
-        self.create_at = datetime.now() # Current date and time
-        self.update_at = datetime.now() # update current date and time
+        if (kwargs):
+            for key, value in kwargs.items():
+                if key is not  '__class__':
+                    if (key is 'created_at') or (key is 'updated_at'):
+                        formate = "%Y-%m-%dT%H:%M:%S.%f"
+                        value = datetime.strptime(value, formate)
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now() # Current date and time
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """
@@ -35,7 +42,7 @@ class BaseModel():
         """
             update the instance update_at
         """
-        self.update_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """
@@ -43,8 +50,8 @@ class BaseModel():
         """
         new_d = self.__dict__.copy()
         new_d["__class__"] = __class__.__name
-        new_d['created_at'] = self.create_at.isoformat()
-        new_d['update_at'] = self.update_at.isoformat()
+        new_d['created_at'] = self.created_at.isoformat()
+        new_d['updated_at'] = self.updated_at.isoformat()
 
         return new_d
 
