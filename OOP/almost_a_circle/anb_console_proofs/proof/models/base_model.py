@@ -21,14 +21,16 @@ class BaseModel():
         """
         if (kwargs):
             for key, value in kwargs.items():
-                if key is not  '__class__':
-                    if (key is 'created_at') or (key is 'updated_at'):
-                        formate = "%Y-%m-%dT%H:%M:%S.%f"
-                        value = datetime.strptime(value, formate)
+                if key == 'created_at' or key == 'updated_at':
+                    formate = "%Y-%m-%dT%H:%M:%S.%f"
+                    val = datetime.strptime(value, formate)
+                    setattr(self, key, val)
+                
+                elif key != "__class__":
                     setattr(self, key, value)
         else:
             self.id = str(uuid4())
-            self.created_at = datetime.now() # Current date and time
+            self.created_at = datetime.now()
             self.updated_at = datetime.now()
 
     def __str__(self):
