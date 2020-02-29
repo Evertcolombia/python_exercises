@@ -18,5 +18,18 @@ print()
 os.chdir('/home/fantasma/Desktop/my-project')
 
 #Create A folder from code
-os.makedirs('/home/fantasma/Desktop/my-project/Web_scrapping/proof')
-os.makedirs('/home/fantasma/Desktop/my-project/Web_scrapping/proof2/other')
+os.makedirs('/home/fantasma/Desktop/my-projectproof')
+os.makedirs('/home/fantasma/Desktop/my-project/proof2/other')
+
+# Know the abosulte path from a position
+z = os.path.abspath('.')
+print(z)
+# know if a paht is an absolute path
+a = os.path.isabs('.')
+print(a)
+b = os.path.isabs('/home/fantasma/Desktop/my-project/python_exercises/0x08-python_files')
+print(b)
+
+# know the absolute path and ask if is exist
+c = os.path.isabs(os.path.abspath('.'))
+print(c)
