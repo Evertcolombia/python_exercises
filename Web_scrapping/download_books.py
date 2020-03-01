@@ -8,8 +8,9 @@ import requests, sys, os
     sys.argv:
         [1] = Url to rquest
         [2] = File names
-        [3] = limit to request to do example (17)
-        [4] = Folder name for the Donwloaded content
+        [3] = File extension
+        [4] = limit to request to do example (17)
+        [5] = Folder name for the Donwloaded content
 """
 
 
@@ -21,13 +22,13 @@ def create_folder():
         path: the (cwd + sys.argv[4]) argv[4] folder name by user
     """
     cwd = os.getcwd()
-    path = cwd + '/' + sys.argv[4]
+    path = cwd + '/' + sys.argv[5]
 
     try:
         os.makedirs(path)
         return path
     except:
-        print("Can't Create the folder {}".format(sys.argv[4]))
+        print("Can't Create the folder {}".format(sys.argv[5]))
         sys.exit(1)
 
 
@@ -63,23 +64,34 @@ def get_page(n):
     create_file(res)
 
 
-if len(sys.argv) > 3:
+if len(sys.argv) > 4:
     """
         This part runs the program
 
         path: the return folder create path
-        filename: name by user argv[2] .html extansion
+        filename: name by user argv[2] .argv[3] as extension
     """
-    path = create_folder()
     
-    for n in range(1, int(sys.argv[3])):
+    if sys.argv[3][0] != '.':
+        print("File ext use '.' ex: .{}".format(sys.argv[3]))
+        sys.exit(1)
+
+    try:
+        d_range = int(sys.argv[4])
+    except:
+        raise ValueError('Range Donwload must be integer {}'.format(sys.argv[4]))
+
+    path = create_folder()
+    file_ext = sys.argv[3]
+
+    for n in range(0, d_range):
         try:
-            filename = sys.argv[2] + str(n) + '.html'
+            filename = sys.argv[2] + str(n) + file_ext
             get_page(n)
         except:
             print("File {} wasn't created".format(filename))
 else:
     s1 = "Error No arguments to use the program example"
-    s2 = "[url] [file_names] [range] [folder_name]"
+    s2 = "[url] [file_names] [file extension] [range] [folder_name]"
     print("{} {}".format(s1, s2))
     sys.exit(1)
