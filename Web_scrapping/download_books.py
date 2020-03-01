@@ -13,7 +13,6 @@ import requests, sys, os
         [5] = Folder name for the Donwloaded content
 """
 
-
 def create_folder():
     """
         Create a new folder at the current working directory
@@ -64,6 +63,23 @@ def get_page(n):
     create_file(res)
 
 
+def validator():
+    """
+        This function validates the file extension and the
+        range for the downloads sequence
+    """
+    if sys.argv[3][0] != '.':
+        print("File ext use '.' ex: .{}".format(sys.argv[3]))
+        sys.exit(1)
+
+    try:
+        d_range = int(sys.argv[4])
+        return d_range
+    except:
+        st = 'Range Download must be integer {}'
+        raise ValueError(st.format(sys.argv[4]))
+
+
 if len(sys.argv) > 4:
     """
         This part runs the program
@@ -71,16 +87,7 @@ if len(sys.argv) > 4:
         path: the return folder create path
         filename: name by user argv[2] .argv[3] as extension
     """
-    
-    if sys.argv[3][0] != '.':
-        print("File ext use '.' ex: .{}".format(sys.argv[3]))
-        sys.exit(1)
-
-    try:
-        d_range = int(sys.argv[4])
-    except:
-        raise ValueError('Range Donwload must be integer {}'.format(sys.argv[4]))
-
+    d_range = validator()
     path = create_folder()
     file_ext = sys.argv[3]
 
