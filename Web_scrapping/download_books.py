@@ -77,4 +77,9 @@ if len(sys.argv) > 3:
             filename = sys.argv[2] + str(n) + '.html'
             get_page(n)
         except:
-            pass
+            print("File {} wasn't created".format(filename))
+else:
+    s1 = "Error No arguments to use the program example"
+    s2 = "[url] [file_names] [range] [folder_name]"
+    print("{} {}".format(s1, s2))
+    sys.exit(1)
