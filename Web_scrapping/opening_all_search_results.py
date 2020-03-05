@@ -1,26 +1,36 @@
 #!/usr/bin/python3
 import sys, requests, webbrowser, bs4
 
-if len(sys.argv) > 0:
-    try:
-        res = requests.get('https://google.com/search?q=''https://pypi.org/search/?q=' + ''.join(sys.argv[1:]))
-        res.raise_for_status
-        print("fine")
-        print(sys.argv)
+def simple_request(browser_url):
+    print('Googling...')
+    browser_url = 'https://google.com/search?q='
+    res = requests.get(browser_url + ''.join(search_string))
+    res.raise_for_status()
+    return res
 
+
+def link_elements(res):
+    soup = bs4.BeautifulSoup(res.text, 'html.parser')
+    linkElems = soup.select('.ZINbbc>div.kCrYT a')
+
+    if (linkElems  == []):
+        print("Can't find any url to go")
+        sys.exit(1)
+    return linkElems
+
+
+if len(sys.argv) > 0:
+
+    try:
+        search_string = sys.argv[1:]
+        res = simple_request(search_string)
     except:
-        print("Basd request")
+        print("request error")
         sys.exit(1)
 
-    soup = bs4.BeautifulSoup(res.text, 'html.parser')
-    print(soup)
-
-    # Look for results with the selector you choose
-    linkElems = soup.select('div.cOl4Id')
-
+    linkElems = link_elements(res)
     numOpen = min(5, len(linkElems))
 
     for i in range(numOpen):
-        urlToOpen = 'https://pypi.org' + linkElems[i].get('href')
-        print('Opening', urlToOpen)
-        webbrowser.open(urlToOpen)
+        url = 'https://google.com' + linkElems[i].get('href')
+        webbrowser.open_new_tab(url)
