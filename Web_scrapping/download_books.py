@@ -24,7 +24,7 @@ def create_folder():
     path = cwd + '/' + sys.argv[5]
 
     try:
-        os.makedirs(path)
+        os.makedirs(path, exist_ok=True)
         return path
     except:
         print("Can't Create the folder {}".format(sys.argv[5]))
