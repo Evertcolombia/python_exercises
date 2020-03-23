@@ -69,9 +69,11 @@ for cat in shelfFile['cats']:
 shelfFile.close()
 
 
+#saving variables with the pprint.pformat() function
+
 #this part do a program that prints all the key values in a dictionary
 #that are stored in number for the total that each one appears i the message
-
+#
 import pprint
 
 message = 'It was a bright cold day in April, and the  clocks were striking thirteen.'
@@ -82,4 +84,17 @@ for character in message:
     charCount.setdefault(character, 0) #if not a value set it at 0
     charCount[character] = charCount[character] + 1
 
+# pprint() will pretty print the key and values of a dictionary
 pprint.pprint(charCount)
+
+
+cats = [{'name': 'Zohpie', 'desc': 'chubby'}, {'name': 'pooka', 'desc': 'fluffy'}]
+
+pprint.pformat(cats)
+
+current = os.path.join(os.getcwd(), 'mycats.py')
+with open(current, 'w', encoding='utf-8') as f:
+    print('saving cats')
+    f.write('cats = ' + pprint.pformat(cats) + '\n')
+
+
