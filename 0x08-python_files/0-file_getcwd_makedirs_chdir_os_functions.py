@@ -46,3 +46,40 @@ print(b)
 # know the absolute path and ask if is exist
 c = os.path.isabs(os.path.abspath('.'))
 print(c)
+
+#Use the Shelve module so save variables in binary files in a program
+
+import shelve
+
+shelfFile = shelve.open('mydata')
+cats = ['zophie', 'nana', 'pooka']
+shelfFile['cats'] = cats
+shelfFile.close()
+
+print('now you have a mydata binary file')
+print('reopening the file')
+
+shelfFile = shelve.open('mydata')
+type(shelfFile)
+
+print('see the bnary File content')
+for cat in shelfFile['cats']:
+    print('cat name {}'.format(cat))
+
+shelfFile.close()
+
+
+#this part do a program that prints all the key values in a dictionary
+#that are stored in number for the total that each one appears i the message
+
+import pprint
+
+message = 'It was a bright cold day in April, and the  clocks were striking thirteen.'
+
+charCount = {}
+
+for character in message:
+    charCount.setdefault(character, 0) #if not a value set it at 0
+    charCount[character] = charCount[character] + 1
+
+pprint.pprint(charCount)
