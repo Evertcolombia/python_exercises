@@ -14,12 +14,25 @@ for file in myFiles:
     print(os.path.join('/home/fantasma/Desktop/my-project/Web_scrapping', file))
 print()
 
+totalsize = 0
+for el in os.listdir(os.getcwd()):
+    try:
+        print('file {} - size: {}'.format(el, os.path.getsize(el)))
+        totalsize = totalsize + os.path.getsize(el)
+    except:
+        pass
+
+print(totalsize)
 # change the current directory
 os.chdir('/home/fantasma/Desktop/my-project')
 
 #Create A folder from code
-os.makedirs('/home/fantasma/Desktop/my-projectproof')
-os.makedirs('/home/fantasma/Desktop/my-project/proof2/other')
+try:
+    os.makedirs('/home/fantasma/Desktop/my-projectproof')
+    os.makedirs('/home/fantasma/Desktop/my-project/proof2/other')
+except:
+    print('Folder name is yet create')
+    pass
 
 # Know the abosulte path from a position
 z = os.path.abspath('.')
