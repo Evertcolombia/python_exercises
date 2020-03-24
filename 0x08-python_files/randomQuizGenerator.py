@@ -27,18 +27,28 @@ capitals = {capitals = {'Alabama': 'Montgomery', 'Alaska': 'Juneau', 'Arizona': 
 # Generate 35 quiz files
 for quizNum in range (3):
 
-    #TODO: create the quiz and answer the key files.
     quizFile = open('capitalQuiz%s.txt' % (quizNum + 1), 'w') 
     answerKeyFile = open('capitalQuiz_answers%s.txt' % (quiznum + 1), 'w')
 
-    #TODO: Write out the header for the quiz
     quizFile.write('Name:\n\nDate:\n\nPeriod:\n\n')
     quizFile.write((' ' * 20) + 'State capitals Quiz (form %s)' + % (quizNum + 1))
     quizFile.write('\n\n')
 
-    #TODO: shuffle the order of the states
     states = list(capitals.keys())
     random.shuffle(states)
-    #TODO: Loop through all so states, making a question for each
 
+    #TODO: Loop through all so states, making a question for each
+    for questionNum in range(50):
+
+        # Get right and wrong answers
+        correctAnswer = capitals[states[questionNum]]
+        wrongAnswers = list(capitals.values())
+        del wrongAnswers[wrongAnswers.index(correctAnswer)]
+        wrongAnswers = random.sample(wrongAnswers, 3)
+        answerOptions = wrongAnswers + [correctAnswer]
+        random.shuffle(answerOptions)
+
+        # write the question and the options answer in the quiz file
+
+        #write the answer key to a file
 
