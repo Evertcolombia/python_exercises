@@ -118,13 +118,13 @@ class LinkedList:
             prev_2.next = current_1
         else:
             self.head = current_1
-
-        current_1.next = current_2.next
-        current_2.next = current_1.next
+        current_1.next, current_2.next = current_2.next, current_1.next
 
     def reverse_iterative(self):
         prev = None
         current = self.head
+        nxt = None
+
         while current:
             nxt = current.next
             current.next = prev
@@ -132,29 +132,114 @@ class LinkedList:
             current = nxt
         self.head = prev
 
-llist = LinkedList()
-llist.append("A")
-llist.append("B")
-llist.append("C")
-llist.prepend("D")
+    def reverse_recursive(self):
 
-llist.insert_after_node(llist.head.next.next, "E")
+        def _reverse_recursive(current, prev):
+            if not current:
+                return prev
+
+            nxt = current.next
+            current.next = prev
+            prev = current
+            current = nxt
+            return _reverse_recursive(current, prev)
+        self.head = _reverse_recursive(current=self.head, prev=None)
+
+    def merge_sorted(self, llist):
+        p = self.head
+        q = llist.head
+        s = None
+
+        if not p:
+            return q
+        if not q:
+            return p
+
+        # init the linked list in s
+        if p and q:
+            if p.data <= q.data:
+                s = p
+                p = s.next
+            else:
+                s = q
+                q = s.next
+            new_head = s
+
+        while p and q:
+            if p.data <= q.data:
+                s.next = p
+                s = p
+                p = s.next
+            else:
+                s.next = q
+                s = q
+                q = s.next
+
+        if not p:
+            s.next = q
+        if not q:
+            s.next = p
+        return new_head
+
+
+llist = LinkedList()
+llist_2 = LinkedList()
+
+llist.append("1")
+llist.append("5")
+llist.append("7")
+llist.append("9")
+llist.append("10")
+llist.append("12")
+llist.append("14")
+
+
+
+llist_2.append("2")
+llist_2.append("3")
+llist_2.append("4")
+llist_2.append("6")
+llist_2.append("8")
+
+print("list self:")
+llist.print_list()
+print("list 2")
+llist_2.print_list()
+print()
+llist.merge_sorted(llist_2)
+llist.print_list()
+
+
+
+
+
+
+
+#llist.prepend("7")
+#llist.insert_after_node(llist.head.next.next, "D")
 #print(llist.len_iterative())
 #print(llist.len_recursive(llist.head))
 #llist.delete_node("B")
 #llist.delete_node("D")
 #llist.delete_node_at_pos(2)
-llist.print_list()
+#llist.print_list()
 #print(llist.len_iterative())
 #print(llist.len_recursive(llist.head))
-llist.swap_nodes("B", "C")
-print("Swapping nodes B and C that are not head nodes")
-llist.print_list()
+#llist.swap_nodes("B", "C")
+#print("Swapping nodes B and C that are not head nodes")
+#llist.print_list()
 
-llist.swap_nodes("A", "B")
-print("Swapping nodes A and B where key_1 is head node")
-llist.print_list()
+#llist.swap_nodes("A", "B")
+#print("Swapping nodes A and B where key_1 is head node")
+#llist.print_list()
 
-llist.swap_nodes("D", "B")
-print("Swapping nodes D and B where key_2 is head node")
-llist.print_list()
+#llist.swap_nodes("D", "B")
+#print("Swapping nodes D and B where key_2 is head node")
+#llist.print_list()
+print()
+#llist.reverse_iterative()
+#llist.print_list()
+#print()
+#llist.reverse_recursive()
+#print()
+#llist.print_list()
