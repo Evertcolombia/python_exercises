@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 class Node:
+    """Node class for each node of linked list"""
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -11,6 +12,7 @@ class LinkedList:
         self.head = None
 
     def append(self, data):
+        """Append node at the end of the list"""
         new_node = Node(data)
         if self.head is None:
             self.head = new_node
@@ -21,11 +23,13 @@ class LinkedList:
         last_node.next = new_node
 
     def prepend(self, data):
+        """Append node at the begun of the list"""
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
 
     def insert_after_node(self, prev_node, data):
+        """Insert after given node new node"""
         if not prev_node:
             print("Previos Node does not exist.")
             return
@@ -34,12 +38,14 @@ class LinkedList:
         prev_node.next = new_node
 
     def print_list(self):
+        """Print the linked list"""
         current = self.head
         while current:
             print(current.data)
             current = current.next
 
     def delete_node(self, key):
+        """Deletes node by key"""
         current = self.head
         # if key is in head.data
         if current and current.data == key:
@@ -59,6 +65,7 @@ class LinkedList:
         current = None
 
     def delete_node_at_pos(self, pos):
+        """Deletes node at position"""
         if self.head:
             current = self.head
             # if pos is head
@@ -80,6 +87,7 @@ class LinkedList:
             current = None
 
     def len_iterative(self):
+        """Gives linked list len iterative"""
         current = self.head
         count = 0
         while current:
@@ -88,11 +96,13 @@ class LinkedList:
         return count
 
     def len_recursive(self, node):
+        """Gives linked list len recursive"""
         if node is None:
             return 0
         return 1 + self.len_recursive(node.next)
 
     def swap_nodes(self, key_1, key_2):
+        """Swap two nodes based on them keys"""
         if key_1 == key_2:
             return
 
@@ -121,6 +131,7 @@ class LinkedList:
         current_1.next, current_2.next = current_2.next, current_1.next
 
     def reverse_iterative(self):
+        """Reverse linked list iterative"""
         prev = None
         current = self.head
         nxt = None
@@ -133,7 +144,7 @@ class LinkedList:
         self.head = prev
 
     def reverse_recursive(self):
-
+        """Reverse linked list recursive"""
         def _reverse_recursive(current, prev):
             if not current:
                 return prev
@@ -146,6 +157,7 @@ class LinkedList:
         self.head = _reverse_recursive(current=self.head, prev=None)
 
     def merge_sorted(self, llist):
+        """Merge two sorted linked list"""
         p = self.head
         q = llist.head
         s = None
@@ -181,18 +193,34 @@ class LinkedList:
             s.next = p
         return new_head
 
+    def remove_duplicates(self):
+        """Removes duplicate node from linked list"""
+        current = self.head
+        prev = None
+        dup_values = dict()
 
-llist = LinkedList()
+        while current:
+            if current.data in dup_values:
+                # remove the current node
+                prev.next = current.next
+                current = None
+            else:
+                # have not encontured element before
+                dup_values[current.data] = 1
+                prev = current
+            current = prev.next
+
+
+"""llist_1 = LinkedList()
 llist_2 = LinkedList()
 
-llist.append("1")
-llist.append("5")
-llist.append("7")
-llist.append("9")
-llist.append("10")
-llist.append("12")
-llist.append("14")
-
+llist_1.append("1")
+llist_1.append("5")
+llist_1.append("7")
+llist_1.append("9")
+llist_1.append("10")
+llist_1.append("12")
+llist_1.append("14")
 
 
 llist_2.append("2")
@@ -202,17 +230,27 @@ llist_2.append("6")
 llist_2.append("8")
 
 print("list self:")
-llist.print_list()
+llist_1.print_list()
 print("list 2")
 llist_2.print_list()
 print()
-llist.merge_sorted(llist_2)
+llist_1.merge_sorted(llist_2)
+llist_1.print_list()"""
+
+llist = LinkedList()
+llist.append(1)
+llist.append(6)
+llist.append(1)
+llist.append(4)
+llist.append(2)
+llist.append(2)
+llist.append(4)
+
+print("Original Linked List")
 llist.print_list()
-
-
-
-
-
+print("Linked List After Removing Duplicates")
+llist.remove_duplicates()
+llist.print_list()
 
 
 #llist.prepend("7")
@@ -236,7 +274,7 @@ llist.print_list()
 #llist.swap_nodes("D", "B")
 #print("Swapping nodes D and B where key_2 is head node")
 #llist.print_list()
-print()
+#print()
 #llist.reverse_iterative()
 #llist.print_list()
 #print()
