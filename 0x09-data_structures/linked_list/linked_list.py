@@ -210,7 +210,194 @@ class LinkedList:
                 prev = current
             current = prev.next
 
+    def print_nth_from_last(self, n):
+        """Print node data that matches from last"""
+        total_len = self.len_iterative()
+        current = self.head
+        print(total_len)
+        while current:
+            if total_len == n:
+                print(current.data)
+                return current.data
+            total_len -= 1
+            current = current.next
 
+        if current is None:
+            return
+
+    def print_nth_from_last2(self, n):
+        """Return node data from node  in n from the final"""
+        p = self.head
+        q = self.head
+        count = 0
+
+        # make q point n nodes beyond the head
+        while q:
+            count += 1
+            if count >= n:
+                break
+            q = q.next
+
+        if not q:
+            print(str(n) + "Is greater than the numbers in the list.")
+            return
+
+        while p and q.next:
+            p = p.next
+            q = q.next
+        return p.data
+
+    def count_occurences_iterative(self, data):
+        """Count occurences of the data in a linked list"""
+        count = 0
+        current = self.head
+
+        while current:
+            if current.data == data:
+                count += 1
+            current = current.next
+        return count
+
+    def count_occurences_recursive(self, node, data):
+        if not node:
+            return 0
+
+        if node.data == data:
+            return 1 + self.count_occurences_recursive(node.next, data)
+        else:
+            return self.count_occurences_recursive(node.next, data)
+
+    def rotate(self, k):
+        """Rotate a linked list from the follow node in k"""
+        if self.head and self.head.next:
+            p = self.head
+            q = self.head
+            prev = None
+            count = 0
+
+        while p and count < k:
+            prev = p
+            p = p.next
+            q = q.next
+            count += 1
+        p = prev
+        while q:
+            prev = q
+            q = q.next
+        q = prev
+
+        q.next = self.head
+        self.head = p.next
+        p.next = None
+
+    def is_palindrome_string(self):
+        """True is a linked list is palindrome"""
+        st = ""
+        current = self.head
+
+        while current:
+            st += current.data
+            current = current.next
+
+        # st[::-1] reverse the string
+        return st == st[::-1]
+
+    def is_palindrome_stack(self):
+        """True is a list is palindrome"""
+        current = self.head
+        stack = []
+
+        while current:
+            stack.append(current.data)
+            current = current.next
+        current = self.head
+        while current:
+            data = stack.pop()
+            if current.data != data:
+                return False
+            current = current.next
+        return True
+
+    def is_palindrome_two_pointers(self):
+        """True if a list is palindrome"""
+        if self.head:
+            p = self.head
+            q = self.head
+            prev = []
+
+            i = 0
+            while q:
+                prev.append(q)
+                q = q.next
+                i += 1
+            q = prev[i-1]
+
+            count = 1
+            while count <= i//2 + 1:
+                if prev[-count].data != p.data:
+                    return False
+                p = p.next
+                count += 1
+            return True
+        else:
+            return False
+
+    def move_tail_to_head(self):
+        """Move tail node to head"""
+        if self.head and self.head.next:
+            current = self.head
+            prev = None
+
+            while current.next:
+                prev = current
+                current = current.next
+            current.next = self.head
+            prev.next = None
+            self.head = current
+
+
+llist = LinkedList()
+llist.append("R")
+llist.append("A")
+llist.append("D")
+llist.append("A")
+llist.append("R")
+
+llist_2 = LinkedList()
+llist_2.append("A")
+llist_2.append("B")
+llist_2.append("C")
+
+print(llist.is_palindrome_string())
+print(llist.is_palindrome_stack())
+print(llist.is_palindrome_two_pointers())
+print(llist_2.is_palindrome_string())
+print(llist_2.is_palindrome_stack())
+print(llist_2.is_palindrome_two_pointers())
+
+print("before")
+llist.print_list()
+llist.move_tail_to_head()
+print("after")
+llist.print_list()
+"""
+llist_2 = LinkedList()
+llist_2.append(1)
+llist_2.append(2)
+llist_2.append(1)
+llist_2.append(3)
+llist_2.append(1)
+llist_2.append(4)
+llist_2.append(1)
+print(llist_2.count_occurences_iterative(1))
+print()
+print(llist_2.count_occurences_recursive(llist_2.head, 1))
+print()
+llist_2.print_list()
+print()
+llist_2.rotate(3)
+llist_2.print_list()
+"""
 """llist_1 = LinkedList()
 llist_2 = LinkedList()
 
@@ -236,7 +423,7 @@ llist_2.print_list()
 print()
 llist_1.merge_sorted(llist_2)
 llist_1.print_list()"""
-
+"""
 llist = LinkedList()
 llist.append(1)
 llist.append(6)
@@ -245,13 +432,18 @@ llist.append(4)
 llist.append(2)
 llist.append(2)
 llist.append(4)
+llist.append(7)
+llist.append(9)
 
 print("Original Linked List")
 llist.print_list()
 print("Linked List After Removing Duplicates")
 llist.remove_duplicates()
 llist.print_list()
-
+print()
+data = llist.print_nth_from_last2(2)
+print(data)
+"""
 
 #llist.prepend("7")
 #llist.insert_after_node(llist.head.next.next, "D")
