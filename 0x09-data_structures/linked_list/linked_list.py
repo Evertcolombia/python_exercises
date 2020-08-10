@@ -355,7 +355,52 @@ class LinkedList:
             prev.next = None
             self.head = current
 
+    def sum_two_list(self, llist):
+        """Sum the data of two linked list"""
+        p = self.head
+        q = llist.head
 
+        sum_list = LinkedList()
+
+        residual = 0
+        while q or p:
+            if not p:
+                i = 0
+            else:
+                i = p.data
+            if not q:
+                j = 0
+            else:
+                j = q.data
+
+            sum = i + j + residual
+            num = sum % 10
+            if sum >= 10:
+                residual = sum // 10
+            else:
+                residual = 0
+            sum_list.append(num)
+            if p:
+                p = p.next
+            if q:
+                q = q.next
+
+        return sum_list
+
+
+llist = LinkedList()
+llist.append(5)
+llist.append(6)
+llist.append(3)
+
+llist_2 = LinkedList()
+llist_2.append(8)
+llist_2.append(4)
+llist_2.append(2)
+
+result = llist.sum_two_list(llist_2)
+result.print_list()
+"""
 llist = LinkedList()
 llist.append("R")
 llist.append("A")
@@ -379,7 +424,7 @@ print("before")
 llist.print_list()
 llist.move_tail_to_head()
 print("after")
-llist.print_list()
+llist.print_list()"""
 """
 llist_2 = LinkedList()
 llist_2.append(1)
