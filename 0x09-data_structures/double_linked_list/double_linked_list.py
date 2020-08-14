@@ -77,7 +77,7 @@ class DoublyLinkedList:
             current = current.next
 
     def delete(self, key):
-        """Deletes Node from list"""
+        """Deletes Node based on key from list"""
         current = self.head
         while current:
             if current.data == key and current == self.head:
@@ -110,6 +110,77 @@ class DoublyLinkedList:
                     return
             current = current.next
 
+    def delete_node(self, node):
+        """Delete node based on node"""
+        current = self.head
+        while current:
+            if current == node and current == self.head:
+                if not current.next:
+                    current = None
+                    self.head = None
+                    return
+                else:
+                    nxt = current.next
+                    nxt.prev = None
+                    current = None
+                    self.head = nxt
+            elif current == node:
+                if current.next:
+                    nxt = current.next
+                    prev = current.prev
+                    prev.next = nxt
+                    nxt.prev = prev
+                    current = None
+                    return
+                else:
+                    prev = current.prev
+                    prev.next = None
+                    current.prev = None
+                    current = None
+                    return
+            current = current.next
+
+    def reverse(self):
+        """Reverse the list"""
+        tmp = None
+        current = self.head
+
+        while current:
+            tmp = current.prev
+            current.prev = current.next
+            current.next = tmp
+            current = current.prev
+        if tmp:
+            self.head = tmp.prev
+
+    def remove_duplicates(self):
+        current = self.head
+        seen = dict()
+
+        while current:
+            if current.data not in seen:
+                seen[current.data] = 1
+                current = current.next
+            else:
+                nxt = current.next
+                self.delete_node(current)
+                current = nxt
+
+    def pairs_with_sum(self, sum_val):
+        """Remove repeated pairs from list"""
+        pairs = list()
+        p = self.head
+        q = None
+
+        while p:
+            q = p.next
+            while q:
+                if p.data + q.data == sum_val:
+                    pairs.append("(" + str(p.data) + "," + str(q.data) + ")")
+                q = q.next
+            p = p.next
+        return pairs
+
 
 """dllist = DoublyLinkedList()
 dllist.prepend(0)
@@ -124,6 +195,7 @@ dllist.add_before_node(4,9)
 
 dllist.print_list()"""
 
+"""
 dllist = DoublyLinkedList()
 dllist.append(1)
 dllist.append(2)
@@ -136,3 +208,22 @@ dllist.delete(4)
 
 dllist.delete(3)
 dllist.print_list()
+"""
+"""
+dllist = DoublyLinkedList()
+dllist.append(1)
+dllist.append(2)
+dllist.append(3)
+dllist.append(4)
+dllist.reverse()
+dllist.print_list()
+"""
+
+dllist = DoublyLinkedList()
+dllist.append(1)
+dllist.append(2)
+dllist.append(3)
+dllist.append(4)
+dllist.append(5)
+
+print(dllist.pairs_with_sum(5))
